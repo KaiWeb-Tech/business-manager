@@ -1,0 +1,95 @@
+@import "tailwindcss";
+
+/*noinspection CssInvalidAtRule*/
+@theme {
+    --font-family-primary: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    --color-primary-black: #1A202C;
+    --color-primary-white: #E2E8F0;
+}
+
+@layer base {
+    body {
+        font-family: var(--font-family-primary), serif;
+        @apply
+        bg-primary-white
+    }
+
+    h1 {
+        @apply
+        text-4xl
+        font-bold
+    }
+
+    h2 {
+        @apply
+        text-3xl
+        font-bold
+    }
+}
+
+@layer components {
+    .n-button__content {
+        @apply
+        text-lg
+        text-primary-white
+    }
+
+    .n-form-item-label__text {
+        @apply
+        text-lg
+    }
+
+    .home-page-footer {
+        @apply
+        bg-primary-black
+        absolute
+        bottom-0
+        w-full
+        h-16;
+        div {
+            @apply
+            flex
+            justify-center
+            items-center
+            h-full
+        }
+
+        span {
+            @apply
+            text-primary-white
+        }
+    }
+
+    .login-view-main {
+        @apply
+        flex
+        flex-row
+        items-center
+        justify-center
+        h-screen
+        pb-12
+    }
+
+    .home-view-main {
+        @apply
+        h-screen
+        pt-[260px]
+    }
+
+    .login-card {
+        @apply
+        max-w-[400px]
+        shadow-2xl
+    }
+
+    .home-page-container {
+        @apply
+        flex
+        flex-col
+        w-full
+        justify-center
+        items-center
+        gap-4
+        px-10
+    }
+}

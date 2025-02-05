@@ -1,0 +1,28 @@
+{
+  "connection": {
+    "fields": {
+      "email": "",
+      "password": ""
+    },
+    "labels": {
+      "email": "Email",
+      "password": "Mot de passe"
+    },
+    "rules": {
+      "email": {
+        "required": true,
+        "message": "L'email est obligatoire",
+        "trigger": [
+          "input"
+        ]
+      },
+      "password": {
+        "required": true,
+        "message": "Le mot de passe est obligatoire",
+        "trigger": [
+          "input"
+        ]
+      }
+    }
+  }
+}
