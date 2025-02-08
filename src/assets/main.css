@@ -92,4 +92,12 @@
         gap-4
         px-10
     }
+
+    .button-tag-default {
+        @apply
+        w-fit
+        h-fit
+        flex
+        cursor-pointer
+    }
 }

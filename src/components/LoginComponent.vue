@@ -1,20 +1,41 @@
 <script setup lang="ts">
-import {NCard, NButton, NForm, NFormItem, type FormInst, NInput} from 'naive-ui'
+import {NCard, NButton, NForm, NFormItem, type FormInst, NInput, NAlert} from 'naive-ui'
 import FooterComponent from "@/components/FooterComponent.vue";
 import {onMounted, reactive, ref} from "vue";
 import formRules from '@/utils/rules.json'
+import apiClient from "@/services/api.ts";
+
+//----------------------REF----------------------
 
 const formRef = ref<FormInst | null>(null);
 const formValue = ref(formRules.connection)
+const errorMessage = ref<string | null>(null);
 
 function handleSubmit() {
-  formRef.value?.validate((errors: any) => {
+  errorMessage.value = null
+  formRef.value?.validate(async (errors: any) => {
     if (!errors) {
-      console.log('success')
+      try {
+        const response = await apiClient.post('/auth/login', {
+          email: formValue.value.fields.email,
+          password: formValue.value.fields.password,
+        });
+
+        const token = response.data.token;
+        localStorage.setItem('bmToken', token);
+
+        window.location.href = '/dashboard';
+      } catch (error: any) {
+        if (error.response && error.response.status === 400) {
+          errorMessage.value = 'Email ou mot de passe incorrect.';
+        } else {
+          errorMessage.value = 'Une erreur est survenue. Veuillez réessayer.';
+        }
+      }
     } else {
-      console.log(errors)
+      console.log(errors);
     }
-  })
+  });
 }
 
 onMounted(() => {
@@ -60,6 +81,9 @@ onMounted(() => {
               Connexion
             </n-button>
           </n-form-item>
+          <n-alert v-if="errorMessage" title="" type="error" closable>
+            {{errorMessage}}
+          </n-alert>
         </n-form>
       </div>
     </div>
