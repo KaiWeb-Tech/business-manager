@@ -25,6 +25,12 @@
         text-3xl
         font-bold
     }
+
+    h3 {
+        @apply
+        text-2xl
+        font-bold
+    }
 }
 
 @layer components {
@@ -46,6 +52,7 @@
         bottom-0
         w-full
         h-16;
+
         div {
             @apply
             flex
@@ -80,6 +87,21 @@
         @apply
         max-w-[400px]
         shadow-2xl
+    }
+
+    .icon-card {
+        @apply
+        min-w-[300px]
+        h-[230px]
+        shadow-lg
+    }
+
+    .card-container {
+        @apply
+        grid
+        grid-cols-3
+        gap-14
+        justify-items-center
     }
 
     .home-page-container {

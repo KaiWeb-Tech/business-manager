@@ -9,6 +9,7 @@ const showHeader = computed(() => route.meta.showHeader);
 
 <template>
   <HeaderComponent v-if="showHeader" />
+  <div class="py-4"></div>
   <RouterView/>
 </template>
 
