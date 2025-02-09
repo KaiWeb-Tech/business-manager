@@ -12,7 +12,6 @@ const theme = ref(darkTheme )
 const menuOptions: MenuOption[] = [
   {
     label: 'Calendrier',
-    key: 'calendar',
     disabled: false,
     children: [
       {
@@ -26,7 +25,7 @@ const menuOptions: MenuOption[] = [
                 },
                 {default: () => 'Liste'}
             ),
-        key: 'list'
+        key: 'calendar',
       }
     ]
   },
@@ -120,14 +119,14 @@ const menuOptions: MenuOption[] = [
 <template>
   <div class="w-[220px] h-screen bg-primary-black">
     <div class="w-full flex flex-row justify-center py-2">
-      <div class="w-36">
+      <a class="w-36" href="/dashboard">
         <img src="@/assets/images/alfred.png" alt="Alfred">
-      </div>
+      </a>
     </div>
     <div class="py-2"></div>
     <div class="text-white">
       <n-config-provider :theme="theme">
-        <n-menu :options="menuOptions"/>
+        <n-menu :options="menuOptions" :default-expand-all="true"/>
       </n-config-provider>
     </div>
   </div>
