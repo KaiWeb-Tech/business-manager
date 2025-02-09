@@ -5,6 +5,9 @@
     --font-family-primary: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
     --color-primary-black: #1A202C;
     --color-primary-white: #E2E8F0;
+    --n-item-text-color: rgb(255, 255, 255) !important;
+    --n-item-text-color-hover: rgb(51, 54, 57);
+    --n-item-text-color-active: #18a058;
 }
 
 @layer base {
@@ -75,6 +78,7 @@
         justify-center
         h-screen
         pb-12
+        px-2
     }
 
     .home-view-main {
@@ -99,8 +103,13 @@
     .card-container {
         @apply
         grid
-        grid-cols-3
-        gap-14
+        grid-cols-1
+        md:grid-cols-2
+        xl:grid-cols-3
+        gap-10
+        md:gap-14
+        px-4
+        2xl:px-0
         justify-items-center
     }
 
@@ -122,4 +131,23 @@
         flex
         cursor-pointer
     }
+
+    /*.n-menu-item-content-header,*/
+    /*.n-menu-item-content-header a,*/
+    /*.n-menu-item-content,*/
+    /*.router-link-active,*/
+    /*.router-link-exact-active{*/
+    /*    color: var(--color-primary-white) !important;*/
+    /*}*/
+
+    /*.n-menu-item-content-header:hover,*/
+    /*.n-menu-item-content-header a:hover,*/
+    /*.n-menu-item-content:hover {*/
+    /*    color: var(--color-primary-black) !important;*/
+    /*}*/
+
+    /*.router-link-active:hover,*/
+    /*.router-link-exact-active:hover {*/
+    /*    color: var(--color-primary-white) !important;*/
+    /*}*/
 }

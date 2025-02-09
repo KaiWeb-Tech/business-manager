@@ -18,43 +18,50 @@ const cards = [
     icon: CalendarOutline,
     title: 'Calendrier',
     subtitle: 'Accédez rapidement à vos événements et rendez-vous.',
-    active: true
+    active: true,
+    path: 'calendar'
   },
   {
     icon: DocumentTextOutline,
     title: 'Factures',
-    subtitle: 'Accédez rapidement à vos événements et rendez-vous.',
-    active: true
+    subtitle: 'Générez, consultez et gérez vos factures en un clic.',
+    active: false,
+    path: 'soon'
   },
   {
     icon: DocumentOutline,
     title: 'Devis',
-    subtitle: 'Accédez rapidement à vos événements et rendez-vous.',
-    active: true
+    subtitle: 'Générez, consultez et gérez vos devis en un clic.',
+    active: false,
+    path: 'soon'
   },
   {
     icon: Receipt20Regular,
     title: 'Créances',
-    subtitle: 'Accédez rapidement à vos événements et rendez-vous.',
-    active: true
+    subtitle: 'Générez, consultez et gérez vos créances en un clic.',
+    active: false,
+    path: 'soon'
   },
   {
     icon: BoxMultiple20Regular,
     title: 'Stock',
-    subtitle: 'Accédez rapidement à vos événements et rendez-vous.',
-    active: true
+    subtitle: 'Gardez un œil sur votre inventaire et gérez vos stocks efficacement.',
+    active: false,
+    path: 'soon'
   },
   {
     icon: PeopleOutline,
     title: 'Contacts',
-    subtitle: 'Accédez rapidement à vos événements et rendez-vous.',
-    active: true
+    subtitle: 'Gérez vos contacts',
+    active: true,
+    path: 'contacts'
   },
   {
     icon: ReportData,
     title: 'Rapports',
-    subtitle: 'Accédez rapidement à vos événements et rendez-vous.',
-    active: true
+    subtitle: 'Analysez vos données et générez des rapports personnalisés.',
+    active: false,
+    path: 'soon'
   },
 ]
 
@@ -69,15 +76,16 @@ onMounted(() => {
       <h2>Bienvenue</h2>
       <h3>{{ user!.companyName }}</h3>
     </div>
-    <div class="w-[1200px] py-10 opacity-10">
+    <div class="max-w-[1200px] py-10 opacity-10">
       <hr v-if="divider">
     </div>
     <div class="card-container">
       <CardComponent v-for="card in cards"
-                     :icon="card.icon"
                      :title="card.title"
                      :subtitle="card.subtitle"
+                     :icon="card.icon"
                      :isActive="card.active"
+                     :path="card.path"
       />
     </div>
   </div>

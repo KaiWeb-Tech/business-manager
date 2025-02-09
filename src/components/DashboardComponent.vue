@@ -12,7 +12,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <section class="w-[1200px]">
+  <section class="max-w-[1200px]">
     <DashboardContainerComponent/>
   </section>
 </template>

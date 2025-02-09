@@ -3,7 +3,8 @@ import {NButton, NTag, NAvatar, NIcon} from 'naive-ui'
 import {useAuthStore} from '@/stores/authStore';
 import {computed} from "vue";
 import {useRoute} from "vue-router";
-import {UserAvatarFilledAlt} from '@vicons/carbon'
+import {UserAvatarFilledAlt, Logout} from '@vicons/carbon'
+
 
 const authStore = useAuthStore();
 authStore.setUser();
@@ -21,26 +22,27 @@ function profile() {
 </script>
 
 <template>
-  <header class="w-full flex flex-row justify-center">
+  <header class="w-full flex flex-row justify-center px-4">
     <div class="w-[1200px] flex flex-row justify-between">
       <div class="flex flex-row items-center gap-4">
         <div class="w-20">
           <img src="@/assets/images/logo_black.png" alt="Logo Alfred Digital">
         </div>
-        <h2 class="font-primary">Alfred Digital</h2>
+        <h2 class="font-primary hidden md:block">Alfred Digital</h2>
       </div>
       <div class="content-center">
         <div class="flex gap-4 items-center">
           <button class="button-tag-default" @click="profile">
             <n-tag size="large" type="info" :style="{zIndex: -10}">
-              {{ user!.email }}
+              <span class="hidden md:inline">{{ user!.email }}</span>
               <template #avatar>
                 <n-icon size="24" :component="UserAvatarFilledAlt"/>
               </template>
             </n-tag>
           </button>
           <n-button type="primary" color="black" size="large" strong @click="logout">
-            Déconnexion
+            <span class="hidden md:inline mr-1">Déconnexion</span>
+            <n-icon size="24" :component="Logout" />
           </n-button>
         </div>
       </div>
