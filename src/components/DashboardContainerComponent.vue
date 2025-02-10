@@ -5,6 +5,7 @@ import CardComponent from "@/components/CardComponent.vue";
 import {CalendarOutline, DocumentTextOutline, DocumentOutline, PeopleOutline} from '@vicons/ionicons5'
 import {BoxMultiple20Regular, Receipt20Regular} from '@vicons/fluent'
 import {ReportData} from '@vicons/carbon'
+import FooterComponent from "@/components/FooterComponent.vue";
 
 const divider = ref(true)
 

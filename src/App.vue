@@ -2,6 +2,7 @@
 import {RouterLink, RouterView, useRoute} from 'vue-router'
 import HeaderComponent from "@/components/HeaderComponent.vue";
 import {computed, ref} from "vue";
+import FooterComponent from "@/components/FooterComponent.vue";
 
 const route = useRoute();
 const showHeader = computed(() => route.meta.showHeader);
@@ -11,6 +12,7 @@ const showHeader = computed(() => route.meta.showHeader);
   <HeaderComponent v-if="showHeader" />
   <div v-if="showHeader" class="py-4"></div>
   <RouterView/>
+  <FooterComponent />
 </template>
 
 <style scoped></style>

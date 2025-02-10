@@ -117,20 +117,25 @@ const menuOptions: MenuOption[] = [
 </script>
 
 <template>
-  <div class="w-[220px] h-screen bg-primary-black">
-    <div class="w-full flex flex-row justify-center py-2">
-      <div class="w-36">
-        <router-link :to="{ name: 'dashboard' }">
-          <img src="@/assets/images/alfred.png" alt="Alfred">
-        </router-link>
+  <div class="flex flex-row">
+    <div class="min-w-[220px] h-screen bg-primary-black">
+      <div class="w-full flex flex-row justify-center py-2">
+        <div class="w-36">
+          <router-link :to="{ name: 'dashboard' }">
+            <img src="@/assets/images/alfred.png" alt="Alfred">
+          </router-link>
+        </div>
+      </div>
+      <div class="py-2"></div>
+      <div class="text-white">
+        <n-config-provider :theme="theme">
+          <n-menu :options="menuOptions" :default-expand-all="true"/>
+        </n-config-provider>
       </div>
     </div>
-    <div class="py-2"></div>
-    <div class="text-white">
-      <n-config-provider :theme="theme">
-        <n-menu :options="menuOptions" :default-expand-all="true"/>
-      </n-config-provider>
-    </div>
+    <section class="p-4 flex flex-col gap-4">
+      <slot name="content" />
+    </section>
   </div>
 </template>
 

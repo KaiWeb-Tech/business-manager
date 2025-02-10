@@ -15,6 +15,7 @@
         font-family: var(--font-family-primary), serif;
         @apply
         bg-primary-white
+        relative
     }
 
     h1 {
@@ -32,6 +33,12 @@
     h3 {
         @apply
         text-2xl
+        font-bold
+    }
+
+    h4 {
+        @apply
+        text-xl
         font-bold
     }
 }
@@ -139,13 +146,11 @@
     /*.router-link-exact-active{*/
     /*    color: var(--color-primary-white) !important;*/
     /*}*/
-
     /*.n-menu-item-content-header:hover,*/
     /*.n-menu-item-content-header a:hover,*/
     /*.n-menu-item-content:hover {*/
     /*    color: var(--color-primary-black) !important;*/
     /*}*/
-
     /*.router-link-active:hover,*/
     /*.router-link-exact-active:hover {*/
     /*    color: var(--color-primary-white) !important;*/

@@ -1,0 +1,14 @@
+Connexion à la DB
+heroku pg:psql --app bmanager-api
+
+UPDATE users
+SET api_key = '13e98700bfc65edef27c43ffa1ab376483f773c0',
+    token = 'f7e434986446a874e11c08ee402bd3998011178d8e22190b7e357554c75eb33d'
+WHERE id = 1;
+
+UPDATE users
+SET api_key = '654ccd4decfedc53d6eb06a48070520213aae83c',
+    token = 'b9b1b2dd2d96e6ec85c2c59642d4ea50dd303e8469666cba83665ea947263ac0'
+WHERE id = 2;
+
+
