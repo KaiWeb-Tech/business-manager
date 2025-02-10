@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const apiClient = axios.create({
-    baseURL: 'http://localhost:3000/api/v1',
+    baseURL: 'https://bmanager-api-246eb321dab2.herokuapp.com/api/v1',
     headers: {
         'Content-Type': 'application/json',
     },
