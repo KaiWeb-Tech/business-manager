@@ -4,6 +4,7 @@ import {useAuthStore} from '@/stores/authStore';
 import {computed} from "vue";
 import {useRoute} from "vue-router";
 import {UserAvatarFilledAlt, Logout} from '@vicons/carbon'
+import router from "@/router";
 
 
 const authStore = useAuthStore();
@@ -13,7 +14,8 @@ const user = computed(() => authStore.user);
 
 function logout() {
   authStore.logout();
-  location.reload()
+  // location.reload()
+  router.replace('/login');
 }
 
 function profile() {

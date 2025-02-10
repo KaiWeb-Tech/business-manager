@@ -3,6 +3,7 @@ import {jwtDecode} from 'jwt-decode';
 interface JwtPayload {
     id: string;
     email: string;
+    companyName: string;
     exp: number; // Timestamp d'expiration
 }
 
