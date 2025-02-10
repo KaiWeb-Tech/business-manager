@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import {type MenuOption, NMenu, NConfigProvider, darkTheme } from 'naive-ui'
+import {type MenuOption, NMenu, NConfigProvider, darkTheme} from 'naive-ui'
 import {h, type Component, ref} from 'vue'
 import {RouterLink} from 'vue-router'
 
-const theme = ref(darkTheme )
+const theme = ref(darkTheme)
 
 // function renderIcon(icon: Component) {
 //   return () => h(NIcon, null, { default: () => h(icon) })
@@ -119,9 +119,11 @@ const menuOptions: MenuOption[] = [
 <template>
   <div class="w-[220px] h-screen bg-primary-black">
     <div class="w-full flex flex-row justify-center py-2">
-      <a class="w-36" href="/dashboard">
-        <img src="@/assets/images/alfred.png" alt="Alfred">
-      </a>
+      <div class="w-36">
+        <router-link :to="{ name: 'dashboard' }">
+          <img src="@/assets/images/alfred.png" alt="Alfred">
+        </router-link>
+      </div>
     </div>
     <div class="py-2"></div>
     <div class="text-white">

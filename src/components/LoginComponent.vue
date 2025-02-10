@@ -4,6 +4,7 @@ import FooterComponent from "@/components/FooterComponent.vue";
 import {onMounted, reactive, ref} from "vue";
 import formRules from '@/utils/rules.json'
 import apiClient from "@/services/api.ts";
+import router from "@/router";
 
 //----------------------REF----------------------
 
@@ -24,7 +25,7 @@ function handleSubmit() {
         const token = response.data.token;
         localStorage.setItem('bmToken', token);
 
-        window.location.href = '/dashboard';
+        await router.push('/dashboard');
       } catch (error: any) {
         if (error.response && error.response.status === 400) {
           errorMessage.value = 'Email ou mot de passe incorrect.';
