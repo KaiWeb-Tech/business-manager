@@ -1,6 +1,9 @@
 {
   "name": "business-manager",
-  "version": "0.0.0",
+  "version": "0.0.1",
+  "engines": {
+    "node": "22.x"
+  },
   "private": true,
   "type": "module",
   "scripts": {
