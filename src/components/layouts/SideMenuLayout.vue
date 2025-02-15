@@ -118,7 +118,7 @@ const menuOptions: MenuOption[] = [
 
 <template>
   <div class="flex flex-row">
-    <div class="min-w-[220px] h-screen bg-primary-black">
+    <div class="min-w-[220px] h-screen bg-primary-black sticky left-0 top-0">
       <div class="w-full flex flex-row justify-center py-2">
         <div class="w-36">
           <router-link :to="{ name: 'dashboard' }">
@@ -133,7 +133,7 @@ const menuOptions: MenuOption[] = [
         </n-config-provider>
       </div>
     </div>
-    <section class="p-4 flex flex-col gap-4">
+    <section class="p-4 flex flex-col gap-4 scroll-auto overflow-auto">
       <slot name="content" />
     </section>
   </div>

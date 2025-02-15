@@ -7,12 +7,13 @@ import {BoxMultiple20Regular, Receipt20Regular} from '@vicons/fluent'
 import {ReportData} from '@vicons/carbon'
 import FooterComponent from "@/components/FooterComponent.vue";
 
+const props = defineProps<{
+  user: any
+}>()
+
 const divider = ref(true)
 
-const authStore = useAuthStore();
-authStore.setUser();
-
-const user = computed(() => authStore.user);
+// const user = computed(() => authStore.user);
 
 const cards = [
   {
@@ -75,7 +76,7 @@ onMounted(() => {
   <div class="w-full flex flex-col justify-center">
     <div class="text-center">
       <h2>Bienvenue</h2>
-      <h3>{{ user!.companyName }}</h3>
+      <h3>{{ user?.companyName }}</h3>
     </div>
     <div class="max-w-[1200px] py-10 opacity-10">
       <hr v-if="divider">

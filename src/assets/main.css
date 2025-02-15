@@ -58,7 +58,6 @@
     .home-page-footer {
         @apply
         bg-primary-black
-        absolute
         bottom-0
         w-full
         h-16;

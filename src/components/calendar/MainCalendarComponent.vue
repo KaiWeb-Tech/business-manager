@@ -1,16 +1,19 @@
 <script setup lang="ts">
 import SideMenuLayout from "@/components/layouts/SideMenuLayout.vue";
 import {onMounted, ref, computed} from "vue";
-import apiAgz from "@/services/apiAgendize.ts";
-import {NCard, NDivider} from 'naive-ui'
-import { format } from "date-fns";
+import {ApiAgz} from "@/services/apiAgendize.ts";
+import {NCard, NDivider, NSpin} from 'naive-ui'
+import {format} from "date-fns";
 import {useAuthStore} from "@/stores/authStore.ts";
+import {useProfileStore} from "@/stores/profileStore.ts";
 
 const authStore = useAuthStore();
-const user = computed(() => authStore.user);
+const profileStore = useProfileStore();
+const profile = computed(() => profileStore.profile);
 
 const errorMessage = ref<string | null>(null);
-const appointmentsList = ref([]);
+const appointmentsList = ref<any[]>([]);
+const loading = ref(true)
 
 function formatDate(dateString: string): string {
   const date = new Date(dateString);
@@ -19,14 +22,15 @@ function formatDate(dateString: string): string {
 
 async function getAppointments() {
   errorMessage.value = null
+  loading.value = true
 
   try {
-    // const response = await apiAgz.get("/2.1/scheduling/companies/0/appointments?apiKey=654ccd4decfedc53d6eb06a48070520213aae83c&token=b9b1b2dd2d96e6ec85c2c59642d4ea50dd303e8469666cba83665ea947263ac0");
-    const response = await apiAgz.get(`/2.1/scheduling/companies/0/appointments?apiKey=${user.value.apiKey}&token=${user.value.token}`);
-    console.log(response.data.items);
-    appointmentsList.value = response.data.items;
+    const currentProfile = profile.value
+    appointmentsList.value = await ApiAgz.getAppointments(currentProfile.apiKey, currentProfile.token)
   } catch (error) {
     errorMessage.value = 'Oups';
+  } finally {
+    loading.value = false
   }
 }
 
@@ -38,24 +42,31 @@ onMounted(() => {
 <template>
   <SideMenuLayout>
     <template v-slot:content>
-      <div v-for="(item, index) in appointmentsList" :key="index">
-        <n-card :style="{borderRadius: '10px'}">
-          <h4>{{item.client.lastName}} {{item.client.firstName}}</h4>
-          <div>
-            <strong>Email :</strong> {{item.client.email!}}
+      <h3>Liste des rendez-vous</h3>
+      <n-spin v-if="loading" size="large" />
+      <n-card v-else v-for="(item, index) in appointmentsList" :key="index" :style="{borderRadius: '10px', width: '500px'}">
+        <h4>{{ item.client.lastName }} {{ item.client.firstName }}</h4>
+        <n-divider/>
+        <div class="flex flex-row justify-between">
+          <div class="w-1/2">
+            <div>
+              <strong>Email :</strong> {{ item.client.email! }}
+            </div>
+            <div>
+              <strong>Tel:</strong> {{ item.client.phone! }}
+            </div>
           </div>
-          <div>
-            <strong>Tel:</strong> {{item.client.phone!}}
+          <n-divider vertical/>
+          <div class="w-1/2">
+            <div>
+              <strong>Motif :</strong> {{ item.service.name }}
+            </div>
+            <div>
+              <strong>Date :</strong> {{ formatDate(item.start.dateTime) }}
+            </div>
           </div>
-          <div>
-            <strong>Motif :</strong> {{item.service.name}}
-          </div>
-          <n-divider />
-          <div>
-            <strong>Date :</strong> {{ formatDate(item.start.dateTime) }}
-          </div>
-        </n-card>
-      </div>
+        </div>
+      </n-card>
     </template>
   </SideMenuLayout>
 </template>

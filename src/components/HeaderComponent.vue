@@ -1,26 +1,28 @@
 <script setup lang="ts">
 import {NButton, NTag, NAvatar, NIcon} from 'naive-ui'
 import {useAuthStore} from '@/stores/authStore';
-import {computed} from "vue";
+import {computed, onMounted, ref} from "vue";
 import {useRoute} from "vue-router";
 import {UserAvatarFilledAlt, Logout} from '@vicons/carbon'
 import router from "@/router";
 
+const user = ref<any | null>(null)
 
 const authStore = useAuthStore();
-authStore.setUser();
-
-const user = computed(() => authStore.user);
 
 function logout() {
   authStore.logout();
-  // location.reload()
   router.replace('/login');
 }
 
 function profile() {
   console.log('TEST')
 }
+
+onMounted(() => {
+  authStore.setUser();
+  user.value = authStore.user
+})
 </script>
 
 <template>
@@ -36,7 +38,7 @@ function profile() {
         <div class="flex gap-4 items-center">
           <button class="button-tag-default" @click="profile">
             <n-tag size="large" type="info" :style="{zIndex: -10}">
-              <span class="hidden md:inline">{{ user!.email }}</span>
+              <span class="hidden md:inline">{{ user?.email! ?? '' }}</span>
               <template #avatar>
                 <n-icon size="24" :component="UserAvatarFilledAlt"/>
               </template>

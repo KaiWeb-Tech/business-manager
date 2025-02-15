@@ -1,16 +1,19 @@
 <script setup lang="ts">
 import SideMenuLayout from "@/components/layouts/SideMenuLayout.vue";
 import {onMounted, ref, computed, h} from "vue";
-import apiAgz from "@/services/apiAgendize.ts";
+import {ApiAgz} from "@/services/apiAgendize.ts";
 import {NCard, NTooltip, NDataTable} from 'naive-ui'
 import { format } from "date-fns";
 import {useAuthStore} from "@/stores/authStore.ts";
+import {useProfileStore} from "@/stores/profileStore.ts";
 
 const authStore = useAuthStore();
-const user = computed(() => authStore.user);
+const profileStore = useProfileStore();
+const profile = computed(() => profileStore.profile);
 
 const errorMessage = ref<string | null>(null);
 const clientsList = ref([]);
+const loading = ref(true)
 
 function formatDate(dateString: string): string {
   const date = new Date(dateString);
@@ -42,14 +45,15 @@ const columns = [
 
 async function getClients() {
   errorMessage.value = null
+  loading.value = true
 
   try {
-    // const response = await apiAgz.get("/2.1/scheduling/companies/0/appointments?apiKey=654ccd4decfedc53d6eb06a48070520213aae83c&token=b9b1b2dd2d96e6ec85c2c59642d4ea50dd303e8469666cba83665ea947263ac0");
-    const response = await apiAgz.get(`/2.0/clients?apiKey=${user.value.apiKey}&token=${user.value.token}`);
-    console.log(response.data.items);
-    clientsList.value = response.data.items;
+    const currentProfile = profile.value
+    clientsList.value = await ApiAgz.getContacts(currentProfile.apiKey, currentProfile.token)
   } catch (error) {
     errorMessage.value = 'Oups';
+  } finally {
+    loading.value = false
   }
 }
 
@@ -62,7 +66,7 @@ onMounted(() => {
   <SideMenuLayout>
     <template v-slot:content>
       <h3>Liste des clients</h3>
-      <n-data-table :columns="columns" :data="clientsList" />
+      <n-data-table :columns="columns" :data="clientsList" :loading="loading" />
     </template>
   </SideMenuLayout>
 </template>

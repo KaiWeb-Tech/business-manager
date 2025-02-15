@@ -3,7 +3,7 @@ import {NCard, NButton, NForm, NFormItem, type FormInst, NInput, NAlert} from 'n
 import FooterComponent from "@/components/FooterComponent.vue";
 import {onMounted, reactive, ref} from "vue";
 import formRules from '@/utils/rules.json'
-import apiClient from "@/services/api.ts";
+import {ApiClient} from "@/services/api.ts";
 import router from "@/router";
 
 //----------------------REF----------------------
@@ -17,16 +17,20 @@ function handleSubmit() {
   formRef.value?.validate(async (errors: any) => {
     if (!errors) {
       try {
-        const response = await apiClient.post('/auth/login', {
+        // const apiClient = new ApiClient()
+        const body = {
           email: formValue.value.fields.email,
           password: formValue.value.fields.password,
-        });
+        }
 
-        const token = response.data.token;
+        const response = await ApiClient.login(body);
+
+        const token = response.token;
         localStorage.setItem('bmToken', token);
 
         await router.push('/dashboard');
       } catch (error: any) {
+        console.log(error)
         if (error.response && error.response.status === 400) {
           errorMessage.value = 'Email ou mot de passe incorrect.';
         } else {
