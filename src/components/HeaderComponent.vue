@@ -2,6 +2,7 @@
 import {
   NButton,
   NTag,
+  NCard,
   NDrawer,
   NDrawerContent,
   NIcon,
@@ -108,7 +109,7 @@ onMounted(async () => {
           </button>
           <n-button type="primary" color="black" size="large" strong @click="logout">
             <span class="hidden md:inline mr-1">Déconnexion</span>
-            <n-icon size="24" :component="Logout" />
+            <n-icon size="24" :component="Logout"/>
           </n-button>
         </div>
       </div>
@@ -123,32 +124,48 @@ onMounted(async () => {
           size="large"
           :rules="formValue.rules"
       >
-        <n-form-item  :label="formValue.labels.company_name" path="email">
-          <n-input disabled v-model:value="formValue.fields.company_name" placeholder="Saisissez votre email" type="text"/>
+        <n-form-item :label="formValue.labels.company_name" path="email">
+          <n-input disabled v-model:value="formValue.fields.company_name" placeholder="Saisissez votre email"
+                   type="text"/>
         </n-form-item>
 
         <n-form-item :label="formValue.labels.email" path="email">
-          <n-input disabled v-model:value="formValue.fields.email!" placeholder="Saisissez le nom de votre entreprise" type="text"/>
+          <n-input disabled v-model:value="formValue.fields.email!" placeholder="Saisissez le nom de votre entreprise"
+                   type="text"/>
         </n-form-item>
+        <div class="flex flex-col gap-4">
+          <n-card>
+            <h4>VosFactures.fr</h4>
+            <n-divider />
+            <n-form-item :label="formValue.labels.vf_account" path="vf_account">
+              <n-input disabled v-model:value="formValue.fields.vf_account!" placeholder="Saisissez votre nom de compte"
+                       type="text"/>
+            </n-form-item>
 
-        <n-form-item :label="formValue.labels.vf_account" path="vf_account">
-          <n-input disabled v-model:value="formValue.fields.vf_account!" placeholder="Saisissez votre nom de compte" type="text"/>
-        </n-form-item>
+            <n-form-item :label="formValue.labels.vf_token" path="vf_token">
+              <n-input disabled v-model:value="formValue.fields.vf_token!" placeholder="Saisissez votre token API"
+                       type="text"/>
+            </n-form-item>
+          </n-card>
 
-        <n-form-item :label="formValue.labels.vf_token" path="vf_token">
-          <n-input disabled v-model:value="formValue.fields.vf_token!" placeholder="Saisissez votre token API" type="text"/>
-        </n-form-item>
+          <n-card>
+            <h4>Agendize</h4>
+            <n-divider />
+            <n-form-item :label="formValue.labels.api_key" path="api_key">
+              <n-input disabled v-model:value="formValue.fields.api_key!" placeholder="Saisissez votre clé API"
+                       type="text"/>
+            </n-form-item>
 
-        <n-form-item :label="formValue.labels.api_key" path="api_key">
-          <n-input disabled v-model:value="formValue.fields.api_key!" placeholder="Saisissez votre clé API" type="text"/>
-        </n-form-item>
-
-        <n-form-item :label="formValue.labels.token" path="token">
-          <n-input disabled v-model:value="formValue.fields.token!" placeholder="Saisissez votre token API" type="text"/>
-        </n-form-item>
+            <n-form-item :label="formValue.labels.token" path="token">
+              <n-input disabled v-model:value="formValue.fields.token!" placeholder="Saisissez votre token API"
+                       type="text"/>
+            </n-form-item>
+          </n-card>
+        </div>
 
         <n-form-item>
-          <n-button disabled :style="{width: '100%', borderRadius: '5px', position: 'absolute', bottom: '0px'}" color="#1A202C" attr-type="button"
+          <n-button disabled :style="{width: '100%', borderRadius: '5px', position: 'absolute', bottom: '0px'}"
+                    color="#1A202C" attr-type="button"
                     @click="handleSubmit">
             Modifier
           </n-button>
@@ -157,7 +174,7 @@ onMounted(async () => {
           Fonctionnalité de modification bientôt disponible
         </n-alert>
         <n-alert v-if="errorMessage" title="" type="error" closable>
-          {{errorMessage}}
+          {{ errorMessage }}
         </n-alert>
       </n-form>
     </n-drawer-content>
