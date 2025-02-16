@@ -1,7 +1,8 @@
 import axios from 'axios';
 
 const apiAgz = axios.create({
-    baseURL: 'https://validation.agendize.com/api/',
+    // baseURL: 'https://validation.agendize.com/api/',
+    baseURL: 'https://france.agendize.com/api/',
     headers: {
         'Content-Type': 'application/json',
     },
