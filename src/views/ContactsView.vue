@@ -5,8 +5,6 @@ import MainContactComponent from "@/components/contacts/MainContactComponent.vue
 
 <template>
   <MainContactComponent />
-<!--  <main class="w-full flex flex-row items-center justify-center">-->
-<!--  </main>-->
 </template>
 
 <style scoped>

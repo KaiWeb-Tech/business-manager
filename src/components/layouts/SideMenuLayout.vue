@@ -1,13 +1,12 @@
 <script setup lang="ts">
 import {type MenuOption, NMenu, NConfigProvider, darkTheme} from 'naive-ui'
-import {h, type Component, ref} from 'vue'
+import {h, ref} from 'vue'
 import {RouterLink} from 'vue-router'
+import { useRoute } from 'vue-router'
 
+const route = useRoute()
 const theme = ref(darkTheme)
-
-// function renderIcon(icon: Component) {
-//   return () => h(NIcon, null, { default: () => h(icon) })
-// }
+const activeKey = ref(route.name?.toString() || '')
 
 const menuOptions: MenuOption[] = [
   {
@@ -39,12 +38,12 @@ const menuOptions: MenuOption[] = [
                 RouterLink,
                 {
                   to: {
-                    name: 'soon',
+                    name: 'estimates',
                   }
                 },
                 {default: () => 'Devis'}
             ),
-        key: ''
+        key: 'estimates'
       },
       {
         label: () =>
@@ -52,12 +51,12 @@ const menuOptions: MenuOption[] = [
                 RouterLink,
                 {
                   to: {
-                    name: 'soon',
+                    name: 'invoices',
                   }
                 },
                 {default: () => 'Facture'}
             ),
-        key: 'invoice'
+        key: 'invoices'
       },
       {
         label: () =>
@@ -70,7 +69,7 @@ const menuOptions: MenuOption[] = [
                 },
                 {default: () => 'Créance'}
             ),
-        key: 'claim'
+        key: 'claims'
       },
       {
         label: () =>
@@ -107,7 +106,7 @@ const menuOptions: MenuOption[] = [
             {
               to: {
                 name: 'soon',
-              }
+              },
             },
             {default: () => 'Stock'}
         ),
@@ -129,7 +128,7 @@ const menuOptions: MenuOption[] = [
       <div class="py-2"></div>
       <div class="text-white">
         <n-config-provider :theme="theme">
-          <n-menu :options="menuOptions" :default-expand-all="true"/>
+          <n-menu :options="menuOptions" :default-expand-all="true" v-model:value="activeKey"/>
         </n-config-provider>
       </div>
     </div>

@@ -27,15 +27,15 @@ const cards = [
     icon: DocumentTextOutline,
     title: 'Factures',
     subtitle: 'Générez, consultez et gérez vos factures en un clic.',
-    active: false,
-    path: 'soon'
+    active: true,
+    path: 'invoices'
   },
   {
     icon: DocumentOutline,
     title: 'Devis',
     subtitle: 'Générez, consultez et gérez vos devis en un clic.',
-    active: false,
-    path: 'soon'
+    active: true,
+    path: 'estimates'
   },
   {
     icon: Receipt20Regular,

@@ -6,10 +6,10 @@ export const useProfileStore = defineStore('profile', {
         profile: null as any | null,
     }),
     actions: {
-        setProfile() {
-            const decoded = decodeToken();
-            if (decoded) {
-                this.profile = decoded;
+        setProfile(profile: any) {
+            // const decoded = decodeToken();
+            if (profile) {
+                this.profile = profile;
             } else {
                 this.profile = null;
             }

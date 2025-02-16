@@ -5,6 +5,8 @@ import DashboardView from "@/views/DashboardView.vue";
 import CalendarView from "@/views/CalendarView.vue";
 import SoonView from "@/views/SoonView.vue";
 import ContactsView from "@/views/ContactsView.vue";
+import EstimatesView from "@/views/EstimatesView.vue";
+import InvoicesView from "@/views/InvoicesView.vue";
 
 const route = useRouter();
 
@@ -37,6 +39,18 @@ const router = createRouter({
       path: '/contacts',
       name: 'contacts',
       component: ContactsView,
+      meta: { requiresAuth: true, showHeader: false },
+    },
+    {
+      path: '/estimates',
+      name: 'estimates',
+      component: EstimatesView,
+      meta: { requiresAuth: true, showHeader: false },
+    },
+    {
+      path: '/invoices',
+      name: 'invoices',
+      component: InvoicesView,
       meta: { requiresAuth: true, showHeader: false },
     },
     {

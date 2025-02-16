@@ -26,7 +26,7 @@ async function getAppointments() {
 
   try {
     const currentProfile = profile.value
-    appointmentsList.value = await ApiAgz.getAppointments(currentProfile.apiKey, currentProfile.token)
+    appointmentsList.value = await ApiAgz.getAppointments(currentProfile.settings!.api_key, currentProfile.settings!.token)
   } catch (error) {
     errorMessage.value = 'Oups';
   } finally {

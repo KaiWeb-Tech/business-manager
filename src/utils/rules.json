@@ -24,5 +24,51 @@
         ]
       }
     }
+  },
+  "profile": {
+    "fields": {
+      "company_name": "",
+      "email": "",
+      "vf_account": "",
+      "vf_token": "",
+      "api_key": "",
+      "token": ""
+    },
+    "labels": {
+      "company_name": "Nom de l'entreprise",
+      "email": "Email",
+      "vf_account": "Compte",
+      "vf_token": "Token API",
+      "api_key": "Clé API",
+      "token": "Token"
+    },
+    "rules": {
+      "company_name": {
+        "required": true,
+        "message": "Le nom de l'entreprise est obligatoire",
+        "trigger": [
+          "input"
+        ]
+      },
+      "email": {
+        "required": true,
+        "message": "Le mot de passe est obligatoire",
+        "trigger": [
+          "input"
+        ]
+      },
+      "vf_account": {
+        "required": false
+      },
+      "vf_token": {
+        "required": false
+      },
+      "api_key": {
+        "required": false
+      },
+      "token": {
+        "required": false
+      }
+    }
   }
 }

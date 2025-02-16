@@ -5,8 +5,6 @@ import MainCalendarComponent from "@/components/calendar/MainCalendarComponent.v
 
 <template>
   <MainCalendarComponent />
-<!--  <main class="w-full flex flex-row items-center justify-center">-->
-<!--  </main>-->
 </template>
 
 <style scoped>

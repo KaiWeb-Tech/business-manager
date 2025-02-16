@@ -19,7 +19,6 @@ export class ApiClient {
 
     static async getProfile() {
         const token = localStorage.getItem('bmToken');
-        console.log(token)
         const response = await apiClient.get('/profile', {headers:
                 {
                     'Authorization': `Bearer ${token}`

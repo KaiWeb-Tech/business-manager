@@ -25,16 +25,19 @@ const columns = [
     title: 'Nom',
     key: 'firstName',
     width: 165,
+    sorter: (row1: any, row2: any) => row1.firstName.localeCompare(row2.firstName)
   },
   {
     title: 'Prénom',
     key: 'lastName',
     ellipsis: true,
+    sorter: (row1: any, row2: any) => row1.lastName.localeCompare(row2.lastName)
   },
   {
     title: 'Email',
     key: 'emailAddresses[0].email',
     ellipsis: true,
+    sorter: (row1: any, row2: any) => row1.emailAddresses[0].email.localeCompare(row2.emailAddresses[0].email)
   },
   {
     title: 'Téléphone',
@@ -49,7 +52,7 @@ async function getClients() {
 
   try {
     const currentProfile = profile.value
-    clientsList.value = await ApiAgz.getContacts(currentProfile.apiKey, currentProfile.token)
+    clientsList.value = await ApiAgz.getContacts(currentProfile.settings!.api_key, currentProfile.settings!.token)
   } catch (error) {
     errorMessage.value = 'Oups';
   } finally {

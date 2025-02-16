@@ -3,7 +3,7 @@ import {NCard, NButton, NForm, NFormItem, type FormInst, NInput, NAlert} from 'n
 import FooterComponent from "@/components/FooterComponent.vue";
 import {onMounted, reactive, ref} from "vue";
 import formRules from '@/utils/rules.json'
-import {ApiClient} from "@/services/api.ts";
+import {ApiClient} from "@/services/apiClient.ts";
 import router from "@/router";
 
 //----------------------REF----------------------
@@ -17,7 +17,6 @@ function handleSubmit() {
   formRef.value?.validate(async (errors: any) => {
     if (!errors) {
       try {
-        // const apiClient = new ApiClient()
         const body = {
           email: formValue.value.fields.email,
           password: formValue.value.fields.password,

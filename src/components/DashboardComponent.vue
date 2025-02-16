@@ -6,7 +6,7 @@ import DashboardContainerComponent from "@/components/DashboardContainerComponen
 import FooterComponent from "@/components/FooterComponent.vue";
 import {useAuthStore} from "@/stores/authStore.ts";
 import {useProfileStore} from '@/stores/profileStore.ts'
-import {ApiClient} from '@/services/api.ts'
+import {ApiClient} from '@/services/apiClient.ts'
 import {decodeToken} from "@/utils/jwtDecoder.ts";
 
 const router = useRouter();
@@ -14,8 +14,6 @@ const authStore = useAuthStore();
 const profileStore = useProfileStore();
 
 authStore.setUser();
-
-const token = localStorage.getItem('bmToken');
 
 function getProfile() {
   ApiClient.getProfile().then(profile => {
