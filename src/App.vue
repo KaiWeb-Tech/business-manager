@@ -5,6 +5,7 @@ import {computed, ref} from "vue";
 import FooterComponent from "@/components/FooterComponent.vue";
 import {useAuthStore} from "@/stores/authStore.ts";
 import {useProfileStore} from "@/stores/profileStore.ts";
+import {ApiClient} from "@/services/apiClient.ts";
 
 const route = useRoute();
 const showHeader = computed(() => route.meta.showHeader);
@@ -13,7 +14,9 @@ const authStore = useAuthStore();
 const profileStore = useProfileStore();
 
 authStore.setUser()
-profileStore.setProfile()
+ApiClient.getProfile().then(profile => {
+  profileStore.setProfile(profile)
+})
 </script>
 
 <template>

@@ -1,14 +1,11 @@
 <script setup lang="ts">
+import {ref, computed, watch} from "vue";
 import SideMenuLayout from "@/components/layouts/SideMenuLayout.vue";
-import {onMounted, ref, computed, h} from "vue";
 import {ApiAgz} from "@/services/apiAgendize.ts";
-import {NDrawer, NTooltip, NDataTable, NDrawerContent, type DrawerPlacement, NDivider} from 'naive-ui'
-import {format} from "date-fns";
-import {useAuthStore} from "@/stores/authStore.ts";
+import {NDrawer, NDataTable, NDrawerContent, type DrawerPlacement, NDivider} from 'naive-ui'
 import {useProfileStore} from "@/stores/profileStore.ts";
 import type {RowData} from "naive-ui/es/data-table/src/interface";
 
-const authStore = useAuthStore();
 const profileStore = useProfileStore();
 const profile = computed(() => profileStore.profile);
 
@@ -19,11 +16,6 @@ const loadingPanel = ref(true)
 const selectedContact = ref<any | null>(null)
 const showPanel = ref(false)
 const placement = ref<DrawerPlacement>('right');
-
-function formatDate(dateString: string): string {
-  const date = new Date(dateString);
-  return format(date, "dd/MM/yyyy HH:mm");
-}
 
 const columns = [
   {
@@ -85,12 +77,11 @@ const activate = (place: DrawerPlacement) => {
   placement.value = place;
 };
 
-async function getClients() {
+async function getClients(currentProfile: any) {
   errorMessage.value = null
   loading.value = true
 
   try {
-    const currentProfile = profile.value
     clientsList.value = await ApiAgz.getContacts(currentProfile.settings!.api_key, currentProfile.settings!.token)
   } catch (error) {
     errorMessage.value = 'Oups';
@@ -99,9 +90,11 @@ async function getClients() {
   }
 }
 
-onMounted(() => {
-  getClients();
-})
+watch(profile, async (newProfile) => {
+  if (newProfile && newProfile.settings) {
+    await getClients(newProfile);
+  }
+}, { immediate: true });
 </script>
 
 <template>

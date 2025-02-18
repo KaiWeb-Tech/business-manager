@@ -1,13 +1,11 @@
 <script setup lang="ts">
+import {ref, computed, watch} from "vue";
 import SideMenuLayout from "@/components/layouts/SideMenuLayout.vue";
-import {onMounted, ref, computed} from "vue";
 import {ApiAgz} from "@/services/apiAgendize.ts";
 import {NCard, NDivider, NSpin} from 'naive-ui'
 import {format} from "date-fns";
-import {useAuthStore} from "@/stores/authStore.ts";
 import {useProfileStore} from "@/stores/profileStore.ts";
 
-const authStore = useAuthStore();
 const profileStore = useProfileStore();
 const profile = computed(() => profileStore.profile);
 
@@ -20,13 +18,13 @@ function formatDate(dateString: string): string {
   return format(date, "dd/MM/yyyy à HH:mm");
 }
 
-async function getAppointments() {
+async function getAppointments(currentProfile: any) {
   errorMessage.value = null
   loading.value = true
 
   try {
-    const currentProfile = profile.value
     appointmentsList.value = await ApiAgz.getAppointments(currentProfile.settings!.api_key, currentProfile.settings!.token)
+    console.log(appointmentsList.value)
   } catch (error) {
     errorMessage.value = 'Oups';
   } finally {
@@ -34,9 +32,11 @@ async function getAppointments() {
   }
 }
 
-onMounted(() => {
-  getAppointments();
-})
+watch(profile, async (newProfile) => {
+  if (newProfile && newProfile.settings) {
+    await getAppointments(newProfile);
+  }
+}, { immediate: true });
 </script>
 
 <template>
@@ -59,7 +59,7 @@ onMounted(() => {
           <n-divider vertical/>
           <div class="w-1/2">
             <div>
-              <strong>Motif :</strong> {{ item.service.name }}
+              <strong>Motif :</strong> {{ item.service?.name! || '' }}
             </div>
             <div>
               <strong>Date :</strong> {{ formatDate(item.start.dateTime) }}

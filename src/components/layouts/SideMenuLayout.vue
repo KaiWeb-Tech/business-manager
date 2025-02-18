@@ -1,17 +1,26 @@
 <script setup lang="ts">
 import {type MenuOption, NMenu, NConfigProvider, darkTheme} from 'naive-ui'
-import {h, ref} from 'vue'
+import {h, ref, watch} from 'vue'
 import {RouterLink} from 'vue-router'
 import { useRoute } from 'vue-router'
 
 const route = useRoute()
 const theme = ref(darkTheme)
-const activeKey = ref(route.name?.toString() || '')
+const activeKey = ref<string | null>(null);
+
+watch(
+    () => route.name,
+    (newRouteName) => {
+      if (newRouteName) {
+        activeKey.value = newRouteName.toString();
+      }
+    },
+    { immediate: true } // Exécute la watcher dès le montage du composant
+);
 
 const menuOptions: MenuOption[] = [
   {
     label: 'Calendrier',
-    disabled: false,
     children: [
       {
         label: () =>

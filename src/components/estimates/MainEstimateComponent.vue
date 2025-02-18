@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import SideMenuLayout from "@/components/layouts/SideMenuLayout.vue";
-import {onMounted, ref, computed, h} from "vue";
+import {onMounted, ref, computed, h, watch} from "vue";
 import {NButton, NTooltip, NDataTable, NTag, darkTheme} from 'naive-ui'
 import {useAuthStore} from "@/stores/authStore.ts";
 import {useProfileStore} from "@/stores/profileStore.ts";
@@ -91,12 +91,11 @@ function show(row: any) {
   window.open(url, '_blank')
 }
 
-async function getEstimates() {
+async function getEstimates(currentProfile: any) {
   errorMessage.value = null
   loading.value = true
 
   try {
-    const currentProfile = profile.value
     estimatesList.value = await ApiVf.getEstimates(currentProfile.settings!.vf_account, currentProfile.settings!.vf_token)
   } catch (error) {
     errorMessage.value = 'Oups';
@@ -105,9 +104,11 @@ async function getEstimates() {
   }
 }
 
-onMounted(() => {
-  getEstimates();
-})
+watch(profile, async (newProfile) => {
+  if (newProfile && newProfile.settings) {
+    await getEstimates(newProfile);
+  }
+}, { immediate: true });
 </script>
 
 <template>

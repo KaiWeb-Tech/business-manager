@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import SideMenuLayout from "@/components/layouts/SideMenuLayout.vue";
-import {onMounted, ref, computed, h} from "vue";
+import {onMounted, ref, computed, h, watch} from "vue";
 import {NButton, NTooltip, NTag, NDataTable} from 'naive-ui'
 import {useAuthStore} from "@/stores/authStore.ts";
 import {useProfileStore} from "@/stores/profileStore.ts";
@@ -93,12 +93,11 @@ function show(row: any) {
   window.open(url, '_blank')
 }
 
-async function getInvoices() {
+async function getInvoices(currentProfile: any) {
   errorMessage.value = null
   loading.value = true
 
   try {
-    const currentProfile = profile.value
     invoicesList.value = await ApiVf.getInvoices(currentProfile.settings!.vf_account, currentProfile.settings!.vf_token)
   } catch (error) {
     errorMessage.value = 'Oups';
@@ -107,9 +106,11 @@ async function getInvoices() {
   }
 }
 
-onMounted(() => {
-  getInvoices();
-})
+watch(profile, async (newProfile) => {
+  if (newProfile && newProfile.settings) {
+    await getInvoices(newProfile);
+  }
+}, { immediate: true });
 </script>
 
 <template>

@@ -37,7 +37,6 @@ function logout() {
 }
 
 function loadingFormValues(currentProfile: any) {
-  console.log(profileStore.profile)
   formValue.value.fields.company_name = currentProfile.company_name ?? ''
   formValue.value.fields.email = currentProfile.email
   formValue.value.fields.vf_account = currentProfile.settings!.vf_account

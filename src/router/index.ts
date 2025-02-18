@@ -7,6 +7,7 @@ import SoonView from "@/views/SoonView.vue";
 import ContactsView from "@/views/ContactsView.vue";
 import EstimatesView from "@/views/EstimatesView.vue";
 import InvoicesView from "@/views/InvoicesView.vue";
+import NotFoundView from "@/views/NotFoundView.vue";
 
 const route = useRouter();
 
@@ -54,6 +55,12 @@ const router = createRouter({
       meta: { requiresAuth: true, showHeader: false },
     },
     {
+      path: '/not_found',
+      name: 'not_found',
+      component: NotFoundView,
+      meta: { requiresAuth: true, showHeader: false },
+    },
+    {
       path: '/soon',
       name: 'soon',
       component: SoonView,
@@ -63,11 +70,25 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  const isAuthenticated = !!localStorage.getItem('bmToken');
-  if (to.meta.requiresAuth && !isAuthenticated) {
-    next('/login');
-  } else {
+  try {
+    const isAuthenticated = !!localStorage.getItem('bmToken');
+
+    if (to.meta.requiresAuth && !isAuthenticated) {
+      // Redirection vers /login si l'utilisateur n'est pas authentifié
+      return next({ name: 'login', query: { redirect: to.fullPath } });
+    }
+
+    if (to.name === 'login' && isAuthenticated) {
+      // Si l'utilisateur est déjà authentifié, redirigez-le vers le tableau de bord
+      return next({ name: 'dashboard' });
+    }
+
+    // Navigation normale
     next();
+  } catch (error) {
+    console.error('Erreur lors de la navigation:', error);
+    // Redirigez vers une page d'erreur ou affichez un message
+    next({ name: 'not_found' });
   }
 });
 
