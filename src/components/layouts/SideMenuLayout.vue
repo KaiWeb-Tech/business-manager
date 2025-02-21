@@ -63,7 +63,7 @@ const menuOptions: MenuOption[] = [
                     name: 'invoices',
                   }
                 },
-                {default: () => 'Facture'}
+                {default: () => 'Factures'}
             ),
         key: 'invoices'
       },
@@ -76,7 +76,7 @@ const menuOptions: MenuOption[] = [
                     name: 'soon',
                   }
                 },
-                {default: () => 'Créance'}
+                {default: () => 'Créances'}
             ),
         key: 'claims'
       },
@@ -89,7 +89,7 @@ const menuOptions: MenuOption[] = [
                     name: 'soon',
                   }
                 },
-                {default: () => 'Rapport'}
+                {default: () => 'Rapports'}
             ),
         key: 'report'
       }
