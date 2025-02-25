@@ -67,6 +67,7 @@ watch(profile, async (newProfile) => {
           </div>
         </div>
       </n-card>
+      <div class="my-6"></div>
     </template>
   </SideMenuLayout>
 </template>

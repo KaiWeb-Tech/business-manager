@@ -2,7 +2,7 @@
 import {ref, computed, watch} from "vue";
 import SideMenuLayout from "@/components/layouts/SideMenuLayout.vue";
 import {ApiAgz} from "@/services/apiAgendize.ts";
-import {NDrawer, NDataTable, NDrawerContent, type DrawerPlacement, NDivider} from 'naive-ui'
+import {NDrawer, NDataTable, NDrawerContent, type DrawerPlacement, NDivider, NInput} from 'naive-ui'
 import {useProfileStore} from "@/stores/profileStore.ts";
 import type {RowData} from "naive-ui/es/data-table/src/interface";
 
@@ -10,12 +10,13 @@ const profileStore = useProfileStore();
 const profile = computed(() => profileStore.profile);
 
 const errorMessage = ref<string | null>(null);
-const clientsList = ref([]);
+const clientsList = ref<any>([]);
 const loading = ref(true)
 const loadingPanel = ref(true)
 const selectedContact = ref<any | null>(null)
 const showPanel = ref(false)
 const placement = ref<DrawerPlacement>('right');
+const searchQuery = ref<string>("")
 
 const columns = [
   {
@@ -90,6 +91,33 @@ async function getClients(currentProfile: any) {
   }
 }
 
+const filter = computed(() => {
+  if (!searchQuery.value || searchQuery.value.trim() === "") {
+    return clientsList.value;
+  }
+
+  const query = searchQuery.value.toLowerCase();
+
+  return clientsList.value?.filter((item: any) => {
+    const firstNameMatch =
+        item.firstName && typeof item.firstName === "string" && item.firstName.toLowerCase().includes(query);
+    const lastNameMatch =
+        item.lastName && typeof item.lastName === "string" && item.lastName.toLowerCase().includes(query);
+    const misc4Match =
+        item.misc4 && typeof item.misc4 === "string" && item.misc4.toLowerCase().includes(query);
+    const misc2Match =
+        item.misc2 && typeof item.misc4 === "string" && item.misc2.toLowerCase().includes(query);
+    const emailMatch =
+        item.emailAddresses &&
+        Array.isArray(item.emailAddresses) &&
+        item.emailAddresses[0] &&
+        typeof item.emailAddresses[0].email === "string" &&
+        item.emailAddresses[0].email.toLowerCase().includes(query);
+
+    return firstNameMatch || lastNameMatch || emailMatch || misc4Match || misc2Match;
+  }) || [];
+})
+
 watch(profile, async (newProfile) => {
   if (newProfile && newProfile.settings) {
     await getClients(newProfile);
@@ -101,7 +129,8 @@ watch(profile, async (newProfile) => {
   <SideMenuLayout>
     <template v-slot:content>
       <h3>Liste des clients</h3>
-      <n-data-table :pagination="{ pageSize: 35 }" :columns="columns" :row-props="rowProps" :data="clientsList"
+      <n-input placeholder="Recherche par nom, prénom, email ou immatriculation" v-model:value="searchQuery" />
+      <n-data-table :pagination="{ pageSize: 35 }" :columns="columns" :row-props="rowProps" :data="filter"
                     :loading="loading"/>
     </template>
   </SideMenuLayout>
